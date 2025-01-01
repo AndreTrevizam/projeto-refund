@@ -38,5 +38,16 @@ form.onsubmit = (event) => {
     create_at: new Date()
   }
 
-  console.log(newExpense)
+  // Chama a função que adiciona o item na lista
+  expenseAdd(newExpense)
+}
+
+function expenseAdd(newExpense) {
+  try {
+    
+    
+  } catch (error) {
+    console.log(error)
+    alert("Ocorreu um erro. Tente novamente.")
+  }
 }
