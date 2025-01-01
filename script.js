@@ -10,7 +10,7 @@ const expenseList = document.querySelector("ul")
 // Pegando o input Amount e removendo os caracteres não numéricos
 amount.oninput = () => {
   let value = amount.value.replace(/\D/g, "")
-  
+
   // transformar o valor em centavos 
   value = Number(value) / 100
 
@@ -72,12 +72,17 @@ function expenseAdd(newExpense) {
     // Adicionando name e category na div expense-info
     expenseInfo.append(expenseName, expenseCategory)
 
+    // Criando o valor da despesa
+    const expenseAmount = document.createElement("span")
+    expenseAmount.classList.add("expense-amount")
+    expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.toUpperCase().replace("R$", "")}`
+
     // Adiciona as informações no item
-    expenseItem.append(expenseIcon, expenseInfo)
+    expenseItem.append(expenseIcon, expenseInfo, expenseAmount)
 
     // Adiciona o item na lista
     expenseList.append(expenseItem)
-    
+
   } catch (error) {
     console.log(error)
     alert("Ocorreu um erro. Tente novamente.")
