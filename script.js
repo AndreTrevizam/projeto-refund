@@ -1,7 +1,11 @@
+// Elementos do formulário
 const form = document.querySelector("form")
 const amount = document.getElementById("amount")
 const expense = document.getElementById("expense")
 const category = document.getElementById("category")
+
+// Elementos da lista
+const expenseList = document.querySelector("ul")
 
 // Pegando o input Amount e removendo os caracteres não numéricos
 amount.oninput = () => {
@@ -47,6 +51,17 @@ function expenseAdd(newExpense) {
     // Criando o elemento li para adicionar o item na lista
     const expenseItem = document.createElement("li")
     expenseItem.classList.add("expense")
+
+    // Criando o icone da categoria
+    const expenseIcon = document.createElement("img")
+    expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`)
+    expenseIcon.setAttribute("alt", newExpense.category_name)
+
+    // Adiciona as informações no item
+    expenseItem.append(expenseIcon)
+
+    // Adiciona o item na lista
+    expenseList.append(expenseItem)
 
   } catch (error) {
     console.log(error)
