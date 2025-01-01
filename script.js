@@ -1,4 +1,7 @@
+const form = document.querySelector("form")
 const amount = document.getElementById("amount")
+const expense = document.getElementById("expense")
+const category = document.getElementById("category")
 
 // Pegando o input Amount e removendo os caracteres não numéricos
 amount.oninput = () => {
@@ -19,4 +22,8 @@ function formatCurrencyBRL(value) {
 
   // Retorna o valor formatado
   return value
+}
+
+form.onsubmit = (event) => {
+  event.preventDefault()
 }
