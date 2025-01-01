@@ -44,8 +44,10 @@ form.onsubmit = (event) => {
 
 function expenseAdd(newExpense) {
   try {
-    
-    
+    // Criando o elemento li para adicionar o item na lista
+    const expenseItem = document.createElement("li")
+    expenseItem.classList.add("expense")
+
   } catch (error) {
     console.log(error)
     alert("Ocorreu um erro. Tente novamente.")
