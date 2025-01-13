@@ -6,6 +6,8 @@ const category = document.getElementById("category")
 
 // Elementos da lista
 const expenseList = document.querySelector("ul")
+const expenseQuantity = document.querySelector("aside header p span")
+const expenseTotal = document.querySelector("aside header h2")
 
 // Pegando o input Amount e removendo os caracteres não numéricos
 amount.oninput = () => {
@@ -90,8 +92,60 @@ function expenseAdd(newExpense) {
     // Adiciona o item na lista
     expenseList.append(expenseItem)
 
+    // Atualiza os totais
+    updateTotals()
+
   } catch (error) {
     console.log(error)
     alert("Ocorreu um erro. Tente novamente.")
+  }
+}
+
+// Atualiza os totais
+function updateTotals() {
+  try {
+    // Recupera todos os itens (lis) da lista (ul)
+    const items = expenseList.children
+    
+    // Atualiza a quantidade de itens da lista
+    expenseQuantity.textContent = `${items.length} ${items.length > 1 ? "despesas" : "despesa"}`
+
+    // Variavel para incrementar o total
+    let total = 0
+    
+    // Percorre cada item da lista
+    for(let item = 0; item < items.length; item++) {
+      const itemAmount = items[item].querySelector(".expense-amount")
+      
+      // Removendo caracteres não númericos e substitui virgula por ponto
+      let value = itemAmount.textContent.replace(/[^\d,]/g, "").replace(",", ".")
+
+      // Converte o valor pra float
+      value = parseFloat(value)
+
+      // Verificia se o numero é valido
+      if(isNaN(value)) {
+        return alert("O valor não é um número")
+      }
+
+      total += Number(value)
+    }
+
+    // Criar a span para adicionar o R$ formatado
+    const symbolBRL = document.createElement("small")
+    symbolBRL.textContent = "R$"
+
+    // Formata o valor e remove o R$ que será exibido pela small com um estilo customizado
+    total = formatCurrencyBRL(total).toUpperCase().replace("R$", "")
+
+    // Limpa o conteudo do elemento
+    expenseTotal.innerHTML = ""
+
+    // Adiciona o simbolo da moeda e o valor total formatado
+    expenseTotal.append(symbolBRL, total)
+
+  } catch (error) {
+    console.log(error)
+    alert("Não foi possível atualizar os totais")
   }
 }
